@@ -39,39 +39,70 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weatherInfoService = new WeatherInfoService();
-        weatherapi wapi;
+//        weatherInfoService = new WeatherInfoService();
+//        weatherapi wapi;
 
         //wapi = WeatherInfoService.createService(wapi.class , getResources().getString(R.string.base_url));
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://api.openweathermap.org/data/2.5/forecast/")
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        weatherapi weatherapiservice = retrofit.create(weatherapi.class);
+
+        Call<Model> modelCall = weatherapiservice.getWeather(23 ,34);
+
+        modelCall.enqueue(new Callback<Model>() {
+            @Override
+            public void onResponse(Response<Model> response) {
+
+                Model model = (Model) response.body();
+
+                final TextView city = (TextView)findViewById(R.id.textView2);
+                final TextView des = (TextView)findViewById(R.id.textView);
+
+                Log.i(LOG_TAG , response.toString());
+
+                city.setText(model.getCity().getName());
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+
+            }
+        });
+
+
 
     }
 
-    private  void getWeather(double lat, double lon)
-    {
-        try {
-            weatherInfoService.getWeather(lat, lon, new Callback() {
-                @Override
-                public void onResponse(Response response) {
-                    Model model = (Model) response.body();
-
-                    final TextView city = (TextView)findViewById(R.id.textView2);
-                    final TextView des = (TextView)findViewById(R.id.textView);
-
-                    city.setText(model.getCity().getName().toString());
-
-
-                }
-
-                @Override
-                public void onFailure(Throwable t) {
-
-                }
-            });
-        }catch (IOException e){
-
-        }
-    }
+//    private  void getWeather(double lat, double lon)
+//    {
+//        try {
+//            weatherInfoService.getWeather(lat, lon, new Callback() {
+//                @Override
+//                public void onResponse(Response response) {
+//                    Model model = (Model) response.body();
+//
+//                    final TextView city = (TextView)findViewById(R.id.textView2);
+//                    final TextView des = (TextView)findViewById(R.id.textView);
+//
+//                    city.setText(model.getCity().getName().toString());
+//
+//
+//                }
+//
+//                @Override
+//                public void onFailure(Throwable t) {
+//
+//                }
+//            });
+//        }catch (IOException e){
+//
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -95,3 +126,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+

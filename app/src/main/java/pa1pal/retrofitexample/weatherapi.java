@@ -13,7 +13,7 @@ import retrofit.http.Query;
 
 public interface weatherapi {
 
-    @GET("/forecast/daily")
+    @GET("daily")
     Call<Model> getWeather(@Query("lat") double lat , @Query("lon") double lon  );
 
 

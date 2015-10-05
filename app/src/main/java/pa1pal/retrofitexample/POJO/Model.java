@@ -14,7 +14,7 @@ public class Model
     private String cod;
     private float message;
     private int cnt;
-    private java.util.List<pa1pal.retrofitexample.POJO.List> list = new ArrayList<pa1pal.retrofitexample.POJO.List>();
+   // private java.util.List<pa1pal.retrofitexample.POJO.List> list = new ArrayList<pa1pal.retrofitexample.POJO.List>();
 
     /**
      *
@@ -88,21 +88,21 @@ public class Model
         this.cnt = cnt;
     }
 
-    /**
-     *
-     * @return
-     * The list
-     */
-    public java.util.List<pa1pal.retrofitexample.POJO.List> getList() {
-        return list;
-    }
-
-    /**
-     *
-     * @param list
-     * The list
-     */
-    public void setList(java.util.List<pa1pal.retrofitexample.POJO.List> list) {
-        this.list = list;
-    }
+//    /**
+//     *
+//     * @return
+//     * The list
+//     */
+//    public java.util.List<pa1pal.retrofitexample.POJO.List> getList() {
+//        return list;
+//    }
+//
+//    /**
+//     *
+//     * @param list
+//     * The list
+//     */
+//    public void setList(java.util.List<pa1pal.retrofitexample.POJO.List> list) {
+//        this.list = list;
+//    }
 }
